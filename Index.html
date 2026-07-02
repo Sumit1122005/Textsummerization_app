@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Text Summarizer</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #13084a 0%, #380d68 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 28px;
+            padding: 45px;
+            box-shadow: 0 20px 60px rgba(99, 102, 241, .10);
+            border: 1px solid #01153d;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin: auto;
+            margin-bottom: 18px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #050512, #4918b9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 42px;
+            color: #1E293B;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748B;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .description {
+            color: #475569;
+            margin-bottom: 18px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 240px;
+            border: 1px solid #DDE3F0;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            transition: .3s;
+            background: #FAFBFF;
+            color: #1E293B;
+        }
+
+        textarea::placeholder {
+            color: #94A3B8;
+        }
+
+        textarea:focus {
+            border-color: #4648c3;
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, .12);
+        }
+
+        .button-area {
+            margin-top: 25px;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #442262, #1e024f);
+            color: rgb(244, 238, 238);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(99, 102, 241, .25);
+        }
+
+        .summary-box {
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 20px;
+            background: #f5f6f8;
+            border: 1px solid #000916;
+        }
+
+        .summary-box h2 {
+            color: #010200ea;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .summary-box p {
+            color: #131010;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .features {
+            margin-top: 35px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 220px;
+            background: #e2d5f5;
+            border-radius: 18px;
+            padding: 20px;
+            border: 1px solid #000001;
+            transition: .3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(216, 3, 3, 0.05);
+        }
+
+        .feature-card h3 {
+            color: #141550;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #0e2749;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #110803;
+            font-size: 14px;
+        }
+
+        @media(max-width:768px) {
+
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            textarea {
+                height: 200px;
+            }
+
+            .features {
+                flex-direction: column;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            TS
+        </div>
+
+        <h1>Text Summarizer Ai</h1>
+
+        <p class="subtitle">
+            AI Powered Summarization using Hugging Face Transformers
+        </p>
+
+        <p class="description">
+            Paste your article, research paper, blog, or any long text below and receive a concise, accurate summary in seconds.
+        </p>
+
+        <form id="summarization-form">
+
+            <textarea
+                id="dialogue-input"
+                placeholder="Paste your content here..."></textarea>
+
+            <div class="button-area">
+                <button type="submit">
+                    ✨ Generate Text Summary
+                </button>
+            </div>
+
+        </form>
+
+        <div class="summary-box">
+
+            <h2>Summary</h2>
+
+            <p id="summary-content">
+                Your AI-generated summary will appear here...
+            </p>
+
+        </div>
+
+        <div class="features">
+
+            <div class="feature-card">
+                <h1>🐹 Fastability</h1>
+                <p>Generate high-quality summaries within seconds using Transformer models.</p>
+            </div>
+
+            <div class="feature-card">
+                <h1>😎 Intelligent</h1>
+                <p>Powered by Hugging Face Transformers for context-aware summarization.</p>
+            </div>
+
+            <div class="feature-card">
+                <h1>💯 Accurate</h1>
+                <p>Retains the important information while removing unnecessary details.</p>
+            </div>
+
+        </div>
+
+        <footer>
+            © 2026 AI Text Summarizer • Built by Sumit Patel using Hugging Face Transformers
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById("summarization-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // get the refrence to elements
+            const dialogueInput = document.getElementById("dialogue-input");
+            const summeryText = document.getElementById("summary-content");
+            const submitButton = e.target.querySelector("button[type='submit']");
+
+            const dialogue = dialogueInput.value.trim();
+            if (!dialogue) return;
+
+            // Show processing message and disable button 
+            summeryText.innerText = "Generating summery...";
+            submitButton.disabled = true;
+
+            try {
+                const response = await fetch("/summarize", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ dialogue })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Request failed with status ${response.status}`);
+                }
+
+                const data = await response.json();
+                summeryText.innerText = data.summary || "No summary available.";
+            } catch (error) {
+                console.error("Error generating summary:", error);
+                summeryText.innerText = "An error occurred while generating the summary. Please try again.";
+            } finally {
+                submitButton.disabled = false;
+        }
+        });
+    </script>
+</body>
+
+</html>
